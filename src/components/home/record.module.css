@@ -1,0 +1,102 @@
+a:-webkit-any-link {
+  text-decoration: none;
+  color: inherit;
+}
+.recordBox {
+  position: relative;
+  width: 330px;
+  height: 430px;
+  border: 1px #cdcdcd solid;
+  box-shadow: 0px 2px 2px #000;
+  display: inline-block;
+  border-radius: 15px;
+  margin-bottom: 40px;
+}
+.recordImg {
+  object-fit: cover;
+  display: flex;
+  width: 100%;
+  height: 230px;
+  margin-top: 30px;
+  max-height: 160px;
+
+  border-radius: 1px solid #000;
+  border-radius: 5px;
+}
+.cross {
+  max-width: 20px;
+  max-height: 20px;
+  position: absolute;
+  right: 0;
+  margin-top: 5px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+.recordTitle {
+  text-align: center;
+  max-width: 100vw;
+  max-height: 40px;
+  font-weight: bolder;
+  font-size: 32px;
+  font-family: 'Noto Sans Tai Le';
+  margin-top: 5px;
+}
+.recordDescription {
+  word-wrap: break-word;
+  text-indent: 1.5em;
+  margin-right: 30px;
+  margin-left: 30px;
+  font-size: 18px;
+}
+.buttonContainer {
+  text-align: center;
+  position: absolute;
+
+  background-color: #3e99ed;
+  max-width: 270px;
+  max-height: 40px;
+  border-radius: 15px;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  box-sizing: border-box;
+  margin-bottom: 15px;
+  margin-top: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 7px;
+  box-shadow: 0px 2px 5px #000;
+}
+
+.recordButton {
+  text-transform: uppercase;
+  font-size: 16px;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .recordBox {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .recordImg {
+    max-width: 100vw;
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .recordBox {
+    width: 100%;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .recordImg {
+    max-width: 100vw;
+    max-width: 100%;
+  }
+}

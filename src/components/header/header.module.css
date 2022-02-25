@@ -1,0 +1,46 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+.headerBar {
+  width: 100vw;
+  border-bottom: 1px solid gray;
+  height: 130px;
+  display: flex;
+  justify-content: center;
+}
+.headerContainer {
+  width: 1170px;
+  height: 130px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.logo {
+  max-width: 230px;
+  max-height: 130px;
+}
+.createButton {
+  margin-right: 20px;
+  padding-top: 5px;
+}
+.headerElems {
+  font-size: 22px;
+  display: flex;
+}
+.authButtons {
+  padding-top: 5px;
+  text-align: center;
+  background: #f95270;
+  color: #fff;
+  border-radius: 10px;
+  height: 35px;
+  width: 300px;
+}
+@media (max-width: 768px) {
+  .headerElems {
+    display: none;
+  }
+}

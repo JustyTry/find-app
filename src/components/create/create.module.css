@@ -1,0 +1,37 @@
+.mainCreateContainer {
+  display: flex;
+  justify-content: center;
+}
+.createContainer {
+  max-width: 1170px;
+  display: flex;
+  flex-direction: column;
+  flex-basis: 1080px;
+  font-family: sans-serif;
+  text-align: center;
+}
+input[type='text'] {
+  font: 1.2em sans-serif;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+.descriptionArea {
+  height: 150px;
+}
+.inputsContainer {
+  display: flex;
+  font: 1.2em sans-serif;
+  flex-direction: column;
+}
+.button {
+  cursor: pointer;
+  margin-top: 20px;
+  width: 120px;
+  height: 30px;
+  border-radius: 5px;
+  background-color: indigo;
+  color: #fff;
+  font-size: 1em;
+  box-shadow: none;
+}
