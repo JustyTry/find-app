@@ -1,37 +1,48 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './login.module.css';
+import {
+  sendSignInLinkToEmail,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+} from 'firebase/auth';
+import { auth } from '../../config';
 
 const Login = () => {
+  const [email, setemail] = useState('');
+  const [password, setpassword] = useState('');
+  const signup = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // send verification mail.
+        sendEmailVerification(userCredential.user);
+        auth.signOut();
+        alert('Email sent');
+      })
+      .catch(alert);
+  };
+
   return (
-    <div className={styles.center}>
-      <div className={styles.container}>
-        <label className={styles.closeBtn} title="close"></label>
-        <div className={styles.text}>Авторизация</div>
-        <form>
-          <div className={styles.data}>
-            <label>Email</label>
-            <input type="text" id="login" required />
-          </div>
-          <div className={styles.data}>
-            <label>Пароль</label>
-            <input type="password" id="pass" required />
-          </div>
-
-          <div className={styles.btn}>
-            <div className={styles.inner}></div>
-            <button style={{ outline: 'none' }} type="submit">
-              Войти
-            </button>
-          </div>
-
-          <div className={styles.signupLink}>
-            <div>
-              Ещё нет аккаунта?<Link to="/registration">Регистрация</Link>
-            </div>
-          </div>
-        </form>
-      </div>
+    <div className="App">
+      <br />
+      <br />
+      <input
+        type="email"
+        placeholder="Email"
+        onChange={(e) => {
+          setemail(e.target.value);
+        }}></input>
+      <br />
+      <br />
+      <input
+        type="password"
+        placeholder="password"
+        onChange={(e) => {
+          setpassword(e.target.value);
+        }}></input>
+      <br />
+      <br />
+      <button onClick={signup}>Sign-up</button>
     </div>
   );
 };
