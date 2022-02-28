@@ -5,7 +5,7 @@ import { getAuth } from 'firebase/auth';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDdP7kBJnzGGbDYZiR1oT1tyn8Hpqya1SE',
-  authDomain: 'findapp-7c0c5.firebaseapp.com',
+  authDomain: 'find-app.herokuapp.com',
   projectId: 'findapp-7c0c5',
   storageBucket: 'findapp-7c0c5.appspot.com',
   messagingSenderId: '888311010954',
