@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { db, storage } from '../../config';
+import { auth, db, storage } from '../../config';
 import {
   collection,
   getDocs,
@@ -10,11 +10,11 @@ import {
   DocumentData,
 } from 'firebase/firestore';
 import { useState } from 'react';
-import Record from './Record';
-import styles from './home.module.css';
+import Record from '../home/Record';
+import styles from './ownRecords.module.css';
 import { deleteObject, ref } from 'firebase/storage';
 
-const Home = () => {
+const OwnRecords = () => {
   const [dataRecord, setDataRecord] = useState<any>([]);
 
   const recordsCollection = collection(db, 'records');
@@ -47,6 +47,7 @@ const Home = () => {
           .sort(function (a: any, b: any) {
             return b.createdAt - a.createdAt;
           })
+          .filter((rec: any) => rec.uid === auth.currentUser?.uid)
           .map((rec: any, index: number) => (
             <div key={index}>
               <Record
@@ -65,4 +66,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default OwnRecords;

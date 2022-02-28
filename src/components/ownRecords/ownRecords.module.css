@@ -19,7 +19,7 @@ body {
   flex-wrap: wrap;
 }
 
-@media (max-width: 1170px) {
+@media (max-width: 1024px) {
   .recordsContainer {
     max-width: 768px;
   }

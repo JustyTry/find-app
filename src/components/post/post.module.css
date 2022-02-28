@@ -1,0 +1,56 @@
+.container {
+  width: 100vw;
+  height: 100%;
+  padding: 0;
+
+  margin: 0;
+}
+.wrapper {
+  max-width: 1170px;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #f3f3f3;
+  padding: 48px 65px;
+}
+.image {
+  width: 100%;
+
+  margin-left: auto;
+  margin-right: auto;
+}
+.title {
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  font-size: 30px;
+}
+.date {
+  margin-block-start: 1.33em;
+  margin-block-end: 1.33em;
+  font-size: 16px;
+  color: gray;
+}
+.description {
+  font-size: 1.4em;
+  text-indent: 2em;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.contacts {
+  font-size: 1.8em;
+  font-weight: bolder;
+  text-decoration: underline;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .wrapper {
+    background-color: #fff;
+  }
+}
+@media screen and (max-width: 480px) {
+  .wrapper {
+    margin: 0;
+    max-width: none;
+    padding: 0;
+  }
+}

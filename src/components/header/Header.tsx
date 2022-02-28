@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { auth } from '../../config';
 import Logo from '../../images/logo.png';
 import styles from './header.module.css';
 
@@ -17,15 +18,21 @@ const Header = () => {
             <Link to="/create">
               <div className={styles.createButton}>Подать объявление</div>
             </Link>
-
-            <div className={styles.authButtons}>
-              <Link to="/login">
-                <span>Войти</span>
-              </Link>{' '}
-              <Link to="/registration">
-                <span>| Зарегестрироваться</span>
-              </Link>
-            </div>
+            {auth.currentUser ? (
+              <div className={styles.createButton}>
+                <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления </Link>
+                <span onClick={auth.signOut}> Выйти</span>
+              </div>
+            ) : (
+              <div className={styles.authButtons}>
+                <Link to="/login">
+                  <span>Войти</span>
+                </Link>{' '}
+                <Link to="/registration">
+                  <span>| Зарегестрироваться</span>
+                </Link>
+              </div>
+            )}
           </div>
         </div>
       </div>

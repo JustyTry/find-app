@@ -4,36 +4,51 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './modal/Modal';
 import styles from './record.module.css';
+import Image from '../../images/alt.jpg';
 
 interface IRecord {
   title: string;
-  userId: number;
-  description: string;
+  uid: number;
+  createdAt: number;
   imgurl: string;
   status: string;
   id: string;
   deleteItem: () => void;
 }
 
-const Record: FC<IRecord> = ({ title, userId, description, imgurl, status, id, deleteItem }) => {
+const Record: FC<IRecord> = ({ title, uid, createdAt, imgurl, status, id, deleteItem }) => {
   const [modalOpen, setModalOpen] = useState<boolean>(false);
-
+  const dates = [
+    'Января',
+    'Февраля',
+    'Марта',
+    'Аперля',
+    'Мая',
+    'Июня',
+    'Июля',
+    'Августа',
+    'Сентября',
+    'Октября',
+    'Ноября',
+    'Декабря',
+  ];
   return (
-    <div className={styles.recordBox}>
-      {modalOpen && <Modal setModalOpen={setModalOpen} deleteItem={deleteItem} />}
-      <button className={styles.cross} onClick={() => setModalOpen(true)}></button>
-      <Link to={`edit/${id}`}>Изменить</Link>
-      <div>
-        <img className={styles.recordImg} src={imgurl} alt="img" />
-      </div>
-      <div className={styles.recordTitle}>{title}</div>
-      <div className={styles.recordDescription}>{description}</div>
-      <Link className={styles.buttonContainer} to="/post">
-        <div className={styles.recordButton}>
-          <span>Перейти</span>
+    <>
+      <Link className={styles.buttonContainer} to={`/post/${id}`}>
+        <div className={styles.recordBox}>
+          {modalOpen && <Modal setModalOpen={setModalOpen} deleteItem={deleteItem} />}
+
+          <div>
+            <img className={styles.recordImg} src={imgurl} alt="" />
+          </div>
+          <div className={styles.recordTitle}>{title}</div>
+          <div className={styles.date}>
+            {new Date(createdAt).getDate()} {dates[new Date(createdAt).getMonth()]}{' '}
+            {new Date(createdAt).getFullYear()}
+          </div>
         </div>
       </Link>
-    </div>
+    </>
   );
 };
 
