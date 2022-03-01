@@ -37,16 +37,12 @@ function App() {
           <Route
             path="/create"
             element={
-              auth!.currentUser ? (
+             
                 <>
                   <Header />
                   <Create />
                 </>
-              ) : (
-                <>
-                  <Login />
-                </>
-              )
+           
             }
           />
           <Route
