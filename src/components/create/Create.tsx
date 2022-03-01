@@ -30,17 +30,25 @@ const Create = () => {
       const title = titleRef.current.value;
       const contacts = contactRef.current.value;
       const description = descRef.current.value;
-
+      const uid = auth.currentUser!.uid;
+      const createdAt = new Date().getTime();
+      if(fileRef.current.files!.length > 0){
+        
       const image = fileRef.current.files![0];
 
       const storageRef = await ref(storage, image.name);
       await uploadBytes(storageRef, image);
 
       const imgurl = await getDownloadURL(storageRef);
-      const uid = auth.currentUser!.uid;
-      const createdAt = new Date().getTime();
+      
+      
       await addDoc(recordsCollection, { uid, title, contacts, description, createdAt, imgurl });
-    }
+}else{
+  const imgurl = ''
+  await addDoc(recordsCollection, { uid, title, contacts, description, createdAt, imgurl });
+}    
+
+}
   };
 
   const validate = (values: any) => {
