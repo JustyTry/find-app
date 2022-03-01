@@ -61,7 +61,9 @@ const Login = () => {
 
           <div className={styles.signupLink}>
             <div>
-              {errorMessage !== '' && <div>{errorMessage}</div>}
+              {errorMessage !== '' && (
+                <div style={{ color: 'red', paddingBottom: 15 }}>{errorMessage}</div>
+              )}
               Ещё нет аккаунта?<Link to="/registration">Регистрация</Link>
             </div>
           </div>

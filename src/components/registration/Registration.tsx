@@ -137,9 +137,8 @@ const Registration = () => {
             <div className={styles.signupLink}>
               <div>
                 {formik.errors.name || formik.errors.surname || formik.errors.password ? (
-                  <div>Заполните все поля</div>
+                  <div style={{ color: 'red', paddingBottom: 15 }}>Заполните все поля</div>
                 ) : null}
-                {formik.errors.email && <div>Неверный email</div>}
                 Уже есть аккаунт?<Link to="/login">Войти</Link>
               </div>
             </div>

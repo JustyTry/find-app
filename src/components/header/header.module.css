@@ -9,10 +9,12 @@ body {
   display: flex;
   justify-content: center;
 }
+.menuIcon {
+  display: none;
+}
 .headerContainer {
   width: 1170px;
   height: 130px;
-
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,5 +44,25 @@ body {
 @media (max-width: 1024px) {
   .headerElems {
     display: none;
+  }
+  .menuIcon {
+    display: block;
+    max-width: 50px;
+    margin-right: 30px;
+  }
+  .menuIcon {
+    display: block;
+    max-width: 60px;
+    margin-right: 30px;
+  }
+}
+@media (max-width: 480px) {
+  .headerBar {
+    width: 100vw;
+    height: 110px;
+  }
+  .menuIcon {
+    max-width: 60px;
+    margin-right: 20px;
   }
 }

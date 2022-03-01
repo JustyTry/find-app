@@ -3,11 +3,17 @@ import { Link } from 'react-router-dom';
 import { auth } from '../../config';
 import Logo from '../../images/logo.png';
 import styles from './header.module.css';
+import Image from '../../images/menu.png';
+import { useState } from 'react';
+import Sidebar from './Sidebar';
 
 const Header = () => {
+  const [open, setOpen] = useState<boolean>(false);
+
   return (
     <>
       <div className={styles.headerBar}>
+        <div>{open && <Sidebar setOpen={setOpen} />}</div>
         <div className={styles.headerContainer}>
           <div>
             <Link to="/">
@@ -19,9 +25,12 @@ const Header = () => {
               <div className={styles.createButton}>Подать объявление</div>
             </Link>
             {auth.currentUser ? (
-              <div className={styles.createButton}>
-                <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления </Link>
-                <span onClick={auth.signOut}> Выйти</span>
+              <div className={styles.authButtons}>
+                <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления| </Link>
+                <span style={{ cursor: 'pointer' }} onClick={() => auth.signOut()}>
+                  {' '}
+                  Выйти
+                </span>
               </div>
             ) : (
               <div className={styles.authButtons}>
@@ -34,6 +43,7 @@ const Header = () => {
               </div>
             )}
           </div>
+          <img onClick={() => setOpen(!open)} src={Image} alt="" className={styles.menuIcon} />
         </div>
       </div>
     </>

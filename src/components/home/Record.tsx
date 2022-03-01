@@ -5,10 +5,13 @@ import { Link } from 'react-router-dom';
 import Modal from './modal/Modal';
 import styles from './record.module.css';
 import Image from '../../images/alt.jpg';
+import Edit from '../../images/edit.png';
+import Cross from '../../images/close.png';
+import { auth } from '../../config';
 
 interface IRecord {
   title: string;
-  uid: number;
+  uid: string;
   createdAt: number;
   imgurl: string;
   status: string;
@@ -39,6 +42,22 @@ const Record: FC<IRecord> = ({ title, uid, createdAt, imgurl, status, id, delete
           {modalOpen && <Modal setModalOpen={setModalOpen} deleteItem={deleteItem} />}
 
           <div>
+            {auth.currentUser?.uid === uid ? (
+              <>
+                <Link to={`/edit/${id}`}>
+                  {' '}
+                  <img src={Edit} alt="" className={styles.pen} />
+                </Link>
+                <img
+                  src={Cross}
+                  alt=""
+                  className={styles.cross}
+                  onClick={() => setModalOpen(true)}
+                />{' '}
+              </>
+            ) : (
+              <></>
+            )}
             <img className={styles.recordImg} src={imgurl} alt="" />
           </div>
           <div className={styles.recordTitle}>{title}</div>
