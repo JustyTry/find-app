@@ -15,6 +15,7 @@ const Login = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         navigate('/');
+      localStorage.setItem('auth', '1');
       })
       .catch((error) => {
         setErrorMessage('Неверный логин или пароль');
