@@ -37,12 +37,12 @@ const Record: FC<IRecord> = ({ title, uid, createdAt, imgurl, status, id, delete
   ];
   return (
     <>
-      <Link className={styles.buttonContainer} to={`/post/${id}`}>
+      
         <div className={styles.recordBox}>
           {modalOpen && <Modal setModalOpen={setModalOpen} deleteItem={deleteItem} />}
 
           <div>
-            {auth.currentUser?.uid === uid ? (
+            {auth.currentUser?.uid === uid || auth.currentUser?.uid === "tUrdMbTdUOflzmsneOdiL5kJfg52" ? (
               <>
                 <Link to={`/edit/${id}`}>
                   {' '}
@@ -58,15 +58,19 @@ const Record: FC<IRecord> = ({ title, uid, createdAt, imgurl, status, id, delete
             ) : (
               <></>
             )}
+            <Link className={styles.buttonContainer} to={`/post/${id}`}>
             <img className={styles.recordImg} src={imgurl} alt="" />
+            </Link>
           </div>
+          <Link className={styles.buttonContainer} to={`/post/${id}`}>
           <div className={styles.recordTitle}>{title}</div>
           <div className={styles.date}>
             {new Date(createdAt).getDate()} {dates[new Date(createdAt).getMonth()]}{' '}
             {new Date(createdAt).getFullYear()}
           </div>
+          </Link>
         </div>
-      </Link>
+      
     </>
   );
 };
