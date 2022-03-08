@@ -20,7 +20,7 @@ const Sidebar: FC<opner> = ({ setOpen, open }) => {
 
   if (open && sidebarRef.current) {
     sidebarRef.current.focus();
-    sidebarRef.current.style.width = '60vw';
+    sidebarRef.current.style.width = '75vw';
   } else if (sidebarRef.current) {
     sidebarRef.current.focus();
     sidebarRef.current.style.width = '0';

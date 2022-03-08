@@ -35,3 +35,9 @@ input[type='text'] {
   font-size: 1em;
   box-shadow: none;
 }
+@media (max-width: 480px) {
+  .mainCreateContainer {
+    max-width: none;
+    width: 480px;
+  }
+}

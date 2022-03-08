@@ -65,10 +65,11 @@ body {
 }
 @media (max-width: 480px) {
   .headerBar {
-    width: 100%;
     max-width: none;
+    width: 480px;
     height: 110px;
   }
+
   .menuIcon {
     max-width: 60px;
     margin-right: 20px;
