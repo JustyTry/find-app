@@ -9,7 +9,10 @@ body {
   display: flex;
   justify-content: center;
 }
-.menuIcon {
+.menuIconOpen {
+  display: none;
+}
+.menuIconClose {
   display: none;
 }
 .headerContainer {
@@ -41,24 +44,29 @@ body {
   height: 35px;
   width: 300px;
 }
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .headerElems {
     display: none;
   }
-  .menuIcon {
+
+  .menuIconOpen {
     display: block;
-    max-width: 50px;
-    margin-right: 30px;
+    max-width: 40px;
+    margin-right: 40px;
+    transition: 0.5s;
+    transform: rotate(90deg);
   }
-  .menuIcon {
+  .menuIconClose {
     display: block;
-    max-width: 60px;
-    margin-right: 30px;
+    transition: 0.5s;
+    max-width: 40px;
+    margin-right: 40px;
   }
 }
 @media (max-width: 480px) {
   .headerBar {
-    width: 100vw;
+    width: 100%;
+    max-width: none;
     height: 110px;
   }
   .menuIcon {

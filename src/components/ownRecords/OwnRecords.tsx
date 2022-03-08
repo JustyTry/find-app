@@ -1,14 +1,6 @@
 import React, { useEffect } from 'react';
 import { auth, db, storage } from '../../config';
-import {
-  collection,
-  getDocs,
-  deleteDoc,
-  doc,
-  getDoc,
-  orderBy,
-  DocumentData,
-} from 'firebase/firestore';
+import { collection, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { useState } from 'react';
 import Record from '../home/Record';
 import styles from './ownRecords.module.css';

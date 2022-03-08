@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { db, storage } from '../../config';
 import { collection, getDocs, deleteDoc, doc, getDoc } from 'firebase/firestore';
 import { useState } from 'react';
@@ -35,23 +35,27 @@ const Home = () => {
   return (
     <div className={styles.container}>
       <div className={styles.recordsContainer}>
-        {dataRecord
-          .sort(function (a: any, b: any) {
-            return b.createdAt - a.createdAt;
-          })
-          .map((rec: any, index: number) => (
-            <div key={index}>
-              <Record
-                id={rec.id}
-                title={rec.title}
-                uid={rec.uid}
-                createdAt={rec.createdAt}
-                imgurl={rec.imgurl}
-                status={rec.status}
-                deleteItem={deleteItemById(rec.id)}
-              />
-            </div>
-          ))}
+        {useMemo(
+          () =>
+            dataRecord
+              .sort(function (a: any, b: any) {
+                return b.createdAt - a.createdAt;
+              })
+              .map((rec: any, index: number) => (
+                <div key={index}>
+                  <Record
+                    id={rec.id}
+                    title={rec.title}
+                    uid={rec.uid}
+                    createdAt={rec.createdAt}
+                    imgurl={rec.imgurl}
+                    status={rec.status}
+                    deleteItem={deleteItemById(rec.id)}
+                  />
+                </div>
+              )),
+          [dataRecord, deleteItemById],
+        )}
       </div>
     </div>
   );

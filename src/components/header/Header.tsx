@@ -13,7 +13,9 @@ const Header = () => {
   return (
     <>
       <div className={styles.headerBar}>
-        <div>{open && <Sidebar setOpen={setOpen} />}</div>
+        <div>
+          <Sidebar setOpen={setOpen} open={open} />
+        </div>
         <div className={styles.headerContainer}>
           <div>
             <Link to="/">
@@ -26,7 +28,7 @@ const Header = () => {
             </Link>
             {auth.currentUser ? (
               <div className={styles.authButtons}>
-                <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления| </Link>
+                <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления | </Link>
                 <span style={{ cursor: 'pointer' }} onClick={() => auth.signOut()}>
                   {' '}
                   Выйти
@@ -43,7 +45,12 @@ const Header = () => {
               </div>
             )}
           </div>
-          <img onClick={() => setOpen(!open)} src={Image} alt="" className={styles.menuIcon} />
+          <img
+            onClick={() => setOpen(!open)}
+            src={Image}
+            alt=""
+            className={open ? styles.menuIconOpen : styles.menuIconClose}
+          />
         </div>
       </div>
     </>

@@ -24,6 +24,7 @@ input[type='number'] {
 }
 .descriptionArea {
   height: 150px;
+  resize: none;
 }
 .inputsContainer {
   display: flex;

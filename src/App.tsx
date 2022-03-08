@@ -37,16 +37,10 @@ function App() {
           <Route
             path="/create"
             element={
-              auth!.currentUser ? (
-                <>
-                  <Header />
-                  <Create />
-                </>
-              ) : (
-                <>
-                  <Login />
-                </>
-              )
+              <>
+                <Header />
+                <Create />
+              </>
             }
           />
           <Route
@@ -58,7 +52,15 @@ function App() {
               </>
             }
           />
-          <Route path="edit/:id" element={<Edit />} />
+          <Route
+            path="edit/:id"
+            element={
+              <>
+                <Header />
+                <Edit />
+              </>
+            }
+          />
           <Route
             path="/login"
             element={

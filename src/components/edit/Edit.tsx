@@ -1,10 +1,11 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import { MutableRefObject } from 'react';
 import { db, storage } from '../../config';
-import { doc, updateDoc } from 'firebase/firestore';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styles from './edit.module.css';
 import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Edit = () => {
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -14,6 +15,17 @@ const Edit = () => {
 
   const uid = useLocation().pathname.split('/')[2];
   const recordsCollection = doc(db, 'records', uid);
+
+  const [data, setData] = useState<any>([]);
+  const getRecord = async () => {
+    const recordsRef = doc(db, 'records', uid);
+    const docSnap = await getDoc(recordsRef);
+    setData(docSnap.data());
+  };
+
+  useEffect(() => {
+    getRecord();
+  });
 
   const handleClick = async () => {
     if (titleRef.current && contactRef.current && descRef.current && fileRef.current) {
@@ -45,11 +57,26 @@ const Edit = () => {
       <div className={styles.createContainer}>
         <div className={styles.inputsContainer}>
           <h2>Название</h2>
-          <input ref={titleRef} type="text" placeholder="Название" required />
+          <input
+            ref={titleRef}
+            type="text"
+            placeholder="Название"
+            defaultValue={data.title}
+            required
+          />
           <h2>Контакты</h2>
-          <input ref={contactRef} type="number" placeholder="8-xxx-xxx-xx-xx" required />
+          <input
+            ref={contactRef}
+            type="number"
+            placeholder="8-xxx-xxx-xx-xx"
+            defaultValue={data.contacts}
+            required
+          />
           <h2>Описание</h2>
-          <textarea ref={descRef} className={styles.descriptionArea}></textarea>
+          <textarea
+            ref={descRef}
+            className={styles.descriptionArea}
+            defaultValue={data.description}></textarea>
         </div>
         <div>
           <input type="radio" name="status" />
@@ -62,7 +89,7 @@ const Edit = () => {
         </div>
         <div>
           <button onClick={handleClick} className={styles.button}>
-            Создать
+            Изменить
           </button>
         </div>
       </div>

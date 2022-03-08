@@ -4,7 +4,6 @@ import { FC } from 'react';
 import { Link } from 'react-router-dom';
 import Modal from './modal/Modal';
 import styles from './record.module.css';
-import Image from '../../images/alt.jpg';
 import Edit from '../../images/edit.png';
 import Cross from '../../images/close.png';
 import { auth } from '../../config';
@@ -37,36 +36,34 @@ const Record: FC<IRecord> = ({ title, uid, createdAt, imgurl, status, id, delete
   ];
   return (
     <>
-      <Link className={styles.buttonContainer} to={`/post/${id}`}>
-        <div className={styles.recordBox}>
-          {modalOpen && <Modal setModalOpen={setModalOpen} deleteItem={deleteItem} />}
+      <div className={styles.recordBox}>
+        {modalOpen && <Modal setModalOpen={setModalOpen} deleteItem={deleteItem} />}
 
-          <div>
-            {auth.currentUser?.uid === uid ? (
-              <>
-                <Link to={`/edit/${id}`}>
-                  {' '}
-                  <img src={Edit} alt="" className={styles.pen} />
-                </Link>
-                <img
-                  src={Cross}
-                  alt=""
-                  className={styles.cross}
-                  onClick={() => setModalOpen(true)}
-                />{' '}
-              </>
-            ) : (
-              <></>
-            )}
+        <div>
+          {auth.currentUser?.uid === uid ||
+          auth.currentUser?.uid === 'tUrdMbTdUOflzmsneOdiL5kJfg52' ? (
+            <>
+              <Link to={`/edit/${id}`}>
+                {' '}
+                <img src={Edit} alt="" className={styles.pen} />
+              </Link>
+              <img src={Cross} alt="" className={styles.cross} onClick={() => setModalOpen(true)} />{' '}
+            </>
+          ) : (
+            <></>
+          )}
+          <Link className={styles.buttonContainer} to={`/post/${id}`}>
             <img className={styles.recordImg} src={imgurl} alt="" />
-          </div>
+          </Link>
+        </div>
+        <Link className={styles.buttonContainer} to={`/post/${id}`}>
           <div className={styles.recordTitle}>{title}</div>
           <div className={styles.date}>
             {new Date(createdAt).getDate()} {dates[new Date(createdAt).getMonth()]}{' '}
             {new Date(createdAt).getFullYear()}
           </div>
-        </div>
-      </Link>
+        </Link>
+      </div>
     </>
   );
 };
