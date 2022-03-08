@@ -37,18 +37,28 @@ const Edit = () => {
       const title = titleRef.current.value;
       const contacts = contactRef.current.value;
       const description = descRef.current.value;
-      const image = fileRef.current.files![0];
 
-      const storageRef = await ref(storage, image.name);
-      await uploadBytes(storageRef, image);
-      const imgurl = await getDownloadURL(storageRef);
+      if (fileRef.current.files!.length > 0) {
+        const image = fileRef.current.files![0];
 
-      await updateDoc(recordsCollection, {
-        title: title,
-        contacts: contacts,
-        description: description,
-        imgurl: imgurl,
-      });
+        const storageRef = await ref(storage, image.name);
+        await uploadBytes(storageRef, image);
+        const imgurl = await getDownloadURL(storageRef);
+
+        await updateDoc(recordsCollection, {
+          title: title,
+          contacts: contacts,
+          description: description,
+          imgurl: imgurl,
+        });
+      } else {
+        await updateDoc(recordsCollection, {
+          title: title,
+          contacts: contacts,
+          description: description,
+          imgurl: '',
+        });
+      }
     }
   };
 

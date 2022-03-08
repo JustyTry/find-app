@@ -31,7 +31,7 @@ const Header = () => {
                 <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления | </Link>
                 <span style={{ cursor: 'pointer' }} onClick={() => auth.signOut()}>
                   {' '}
-                  Выйти
+                  Выйти{localStorage.removeItem('auth')}
                 </span>
               </div>
             ) : (

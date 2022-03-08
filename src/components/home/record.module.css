@@ -12,6 +12,7 @@ a:-webkit-any-link {
   display: inline-block;
   margin-bottom: 40px;
   box-sizing: border-box;
+  margin-left: 34px;
 }
 
 .recordImg {

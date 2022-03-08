@@ -9,7 +9,6 @@ import Edit from './components/edit/Edit';
 import './app.css';
 import Post from './components/post/Post';
 import OwnRecords from './components/ownRecords/OwnRecords';
-import { auth } from './config';
 
 function App() {
   return (
