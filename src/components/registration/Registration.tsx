@@ -58,6 +58,7 @@ const Registration = () => {
   };
 
   const formik = useFormik({
+    validateOnChange: false,
     initialValues: {
       name: '',
       surname: '',
@@ -90,40 +91,21 @@ const Registration = () => {
           <form onSubmit={formik.handleSubmit}>
             <div className={styles.data}>
               <label>Имя</label>
-              <input
-                type="text"
-                ref={nameRef}
-                required
-                name="name"
-                onChange={formik.handleChange}
-              />
+              <input type="text" ref={nameRef} name="name" onChange={formik.handleChange} />
             </div>
             <div className={styles.data}>
               <label>Фамилия</label>
-              <input
-                type="text"
-                ref={surnameRef}
-                required
-                name="surname"
-                onChange={formik.handleChange}
-              />
+              <input type="text" ref={surnameRef} name="surname" onChange={formik.handleChange} />
             </div>
             <div className={styles.data}>
               <label>Email</label>
-              <input
-                type="email"
-                ref={emailRef}
-                required
-                name="email"
-                onChange={formik.handleChange}
-              />
+              <input type="email" ref={emailRef} name="email" onChange={formik.handleChange} />
             </div>
             <div className={styles.data}>
               <label>Пароль</label>
               <input
                 type="password"
                 ref={passwordRef}
-                required
                 name="password"
                 onChange={formik.handleChange}
               />
@@ -136,8 +118,14 @@ const Registration = () => {
             </div>
             <div className={styles.signupLink}>
               <div>
-                {formik.errors.name || formik.errors.surname || formik.errors.password ? (
+                {formik.errors.name || formik.errors.surname ? (
                   <div style={{ color: 'red', paddingBottom: 15 }}>Заполните все поля</div>
+                ) : formik.errors.email ? (
+                  <div style={{ color: 'red', paddingBottom: 15 }}>Неверный email</div>
+                ) : formik.errors.password ? (
+                  <div style={{ color: 'red', paddingBottom: 15 }}>
+                    Пароль должен быть {'>'} 6 символов
+                  </div>
                 ) : null}
                 Уже есть аккаунт?<Link to="/login">Войти</Link>
               </div>

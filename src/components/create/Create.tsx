@@ -32,23 +32,20 @@ const Create = () => {
       const description = descRef.current.value;
       const uid = auth.currentUser!.uid;
       const createdAt = new Date().getTime();
-      if(fileRef.current.files!.length > 0){
-        
-      const image = fileRef.current.files![0];
+      if (fileRef.current.files!.length > 0) {
+        const image = fileRef.current.files![0];
 
-      const storageRef = await ref(storage, image.name);
-      await uploadBytes(storageRef, image);
+        const storageRef = await ref(storage, image.name);
+        await uploadBytes(storageRef, image);
 
-      const imgurl = await getDownloadURL(storageRef);
-      
-      
-      await addDoc(recordsCollection, { uid, title, contacts, description, createdAt, imgurl });
-}else{
-  const imgurl = ''
-  await addDoc(recordsCollection, { uid, title, contacts, description, createdAt, imgurl });
-}    
+        const imgurl = await getDownloadURL(storageRef);
 
-}
+        await addDoc(recordsCollection, { uid, title, contacts, description, createdAt, imgurl });
+      } else {
+        const imgurl = '';
+        await addDoc(recordsCollection, { uid, title, contacts, description, createdAt, imgurl });
+      }
+    }
   };
 
   const validate = (values: any) => {
@@ -67,14 +64,16 @@ const Create = () => {
   };
 
   const formik = useFormik({
+    validateOnChange: false,
     initialValues: {
       description: '',
       contacts: '',
       title: '',
     },
     validate,
-    onSubmit: () => {
+    onSubmit: (values, { resetForm }) => {
       handleClick();
+      resetForm();
     },
   });
 
@@ -98,7 +97,7 @@ const Create = () => {
               value={formik.values.contacts}
               type="text"
               name="contacts"
-              placeholder="8-xxx-xxx-xx-xx"
+              placeholder="8xxxxxxxxxx"
               onChange={formik.handleChange}
             />
             <h2>Описание</h2>
@@ -119,7 +118,7 @@ const Create = () => {
             <input ref={fileRef} type="file" />
           </div>
           {formik.errors.contacts || formik.errors.description || formik.errors.title ? (
-            <div>Заполните все поля</div>
+            <div className={styles.errorMessage}>Заполните все поля</div>
           ) : null}
 
           <div>

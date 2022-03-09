@@ -26,8 +26,9 @@ const Home = () => {
 
     const url = snap.data()!.imgurl;
     const imageRef = ref(storage, url);
-
-    await deleteObject(imageRef);
+    try {
+      await deleteObject(imageRef);
+    } catch {}
     await deleteDoc(recordDoc);
     setDataRecord(dataRecord.filter((rec: any) => rec.id !== id));
   };

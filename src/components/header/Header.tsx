@@ -6,9 +6,21 @@ import styles from './header.module.css';
 import Image from '../../images/menu.png';
 import { useState } from 'react';
 import Sidebar from './Sidebar';
+import Logout from '../../hooks/Logout';
+import { useEffect } from 'react';
 
 const Header = () => {
   const [open, setOpen] = useState<boolean>(false);
+  const [aunthificated, setAunthificated] = useState<boolean>(false);
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setAunthificated(true);
+      } else {
+        setAunthificated(false);
+      }
+    });
+  }, [setAunthificated]);
 
   return (
     <>
@@ -26,12 +38,11 @@ const Header = () => {
             <Link to="/create">
               <div className={styles.createButton}>Подать объявление</div>
             </Link>
-            {auth.currentUser ? (
+            {aunthificated ? (
               <div className={styles.authButtons}>
-                <Link to={`/records/${auth.currentUser.uid}`}>Мои объявления | </Link>
-                <span style={{ cursor: 'pointer' }} onClick={() => auth.signOut()}>
-                  {' '}
-                  Выйти{localStorage.removeItem('auth')}
+                <Link to={`/records/${auth.currentUser?.uid}`}>Мои объявления | </Link>
+                <span style={{ cursor: 'pointer' }} onClick={() => Logout(setAunthificated)}>
+                  Выйти
                 </span>
               </div>
             ) : (

@@ -68,12 +68,12 @@
   filter: invert(100%);
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .container {
     display: none;
   }
 }
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .listItem {
     font-size: 1.5em;
   }

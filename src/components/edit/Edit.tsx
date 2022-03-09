@@ -6,6 +6,13 @@ import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import styles from './edit.module.css';
 import { useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useFormik } from 'formik';
+
+interface errorsInterface {
+  title: string;
+  description: string;
+  contacts: string;
+}
 
 const Edit = () => {
   const titleRef = useRef() as MutableRefObject<HTMLInputElement>;
@@ -56,54 +63,93 @@ const Edit = () => {
           title: title,
           contacts: contacts,
           description: description,
-          imgurl: '',
+          imgurl: data.imgurl,
         });
       }
     }
   };
 
+  const validate = (values: any) => {
+    const errors = {} as errorsInterface;
+    if (!values.title) {
+      errors.title = 'Required';
+    }
+    if (!values.contacts) {
+      errors.contacts = 'Required';
+    }
+    if (!values.description) {
+      errors.description = 'Required';
+    }
+
+    return errors;
+  };
+
+  const formik = useFormik({
+    validateOnChange: false,
+    initialValues: {
+      title: data.title,
+      contacts: data.contacts,
+      description: data.description,
+    },
+    validate,
+    onSubmit: (values, { resetForm }) => {
+      handleClick();
+      resetForm();
+    },
+  });
   return (
-    <div className={styles.mainCreateContainer}>
-      <div className={styles.createContainer}>
-        <div className={styles.inputsContainer}>
-          <h2>Название</h2>
-          <input
-            ref={titleRef}
-            type="text"
-            placeholder="Название"
-            defaultValue={data.title}
-            required
-          />
-          <h2>Контакты</h2>
-          <input
-            ref={contactRef}
-            type="number"
-            placeholder="8-xxx-xxx-xx-xx"
-            defaultValue={data.contacts}
-            required
-          />
-          <h2>Описание</h2>
-          <textarea
-            ref={descRef}
-            className={styles.descriptionArea}
-            defaultValue={data.description}></textarea>
-        </div>
-        <div>
-          <input type="radio" name="status" />
-          <label>Нашёл</label>
-          <input type="radio" name="status" />
-          <label>Потерял</label>
-        </div>
-        <div>
-          <input ref={fileRef} type="file" />
-        </div>
-        <div>
-          <button onClick={handleClick} className={styles.button}>
-            Изменить
-          </button>
+    <form onSubmit={formik.handleSubmit}>
+      <div className={styles.mainCreateContainer}>
+        <div className={styles.createContainer}>
+          <div className={styles.inputsContainer}>
+            <h2>Название</h2>
+            <input
+              ref={titleRef}
+              type="text"
+              name="title"
+              placeholder="Название"
+              onChange={formik.handleChange}
+              defaultValue={data.title}
+            />
+            <h2>Контакты</h2>
+            <input
+              ref={contactRef}
+              defaultValue={data.contacts}
+              type="text"
+              name="contacts"
+              placeholder="8xxxxxxxxxx"
+              onChange={formik.handleChange}
+            />
+            <h2>Описание</h2>
+            <textarea
+              ref={descRef}
+              value={formik.values.description}
+              name="description"
+              className={styles.descriptionArea}
+              onChange={formik.handleChange}
+              defaultValue={data.description}></textarea>
+          </div>
+          <div>
+            <input type="radio" name="status" />
+            <label>Нашёл</label>
+            <input type="radio" name="status" />
+            <label>Потерял</label>
+          </div>
+          <div>
+            <input ref={fileRef} type="file" />
+          </div>
+          {formik.errors.contacts || formik.errors.description || formik.errors.title ? (
+            <div className={styles.errorMessage}>Заполните все поля</div>
+          ) : null}
+
+          <div>
+            <button type="submit" className={styles.button}>
+              Изменить
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 

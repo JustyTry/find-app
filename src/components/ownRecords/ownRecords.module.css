@@ -19,22 +19,21 @@ body {
   flex-wrap: wrap;
 }
 
-@media (max-width: 1170px) {
+@media screen and (max-width: 1170px) {
   .recordsContainer {
     max-width: 1170px;
     justify-content: center;
   }
 }
 
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .recordsContainer {
     max-width: 480px;
   }
 }
 
-@media (max-width: 480px) {
+@media screen and (max-width: 480px) {
   .recordsContainer {
     max-width: none;
-    width: 480px;
   }
 }

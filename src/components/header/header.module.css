@@ -44,7 +44,7 @@ body {
   height: 35px;
   width: 300px;
 }
-@media (max-width: 768px) {
+@media screen and (max-width: 768px) {
   .headerElems {
     display: none;
   }
@@ -61,17 +61,5 @@ body {
     transition: 0.5s;
     max-width: 40px;
     margin-right: 40px;
-  }
-}
-@media (max-width: 480px) {
-  .headerBar {
-    max-width: none;
-    width: 480px;
-    height: 110px;
-  }
-
-  .menuIcon {
-    max-width: 60px;
-    margin-right: 20px;
   }
 }
