@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './sidebar.module.css';
 import HomeIcon from '../../images/home.png';
@@ -9,6 +9,7 @@ import { FC } from 'react';
 import { auth } from '../../config';
 import { useRef } from 'react';
 import { MutableRefObject } from 'react';
+import Logout from '../../hooks/Logout';
 
 interface opner {
   setOpen: (e: boolean) => void;
@@ -17,6 +18,17 @@ interface opner {
 
 const Sidebar: FC<opner> = ({ setOpen, open }) => {
   const sidebarRef = useRef() as MutableRefObject<HTMLDivElement>;
+
+  const [aunthificated, setAunthificated] = useState<boolean>(false);
+  useEffect(() => {
+    auth.onAuthStateChanged(function (user) {
+      if (user) {
+        setAunthificated(true);
+      } else {
+        setAunthificated(false);
+      }
+    });
+  }, [setAunthificated]);
 
   if (open && sidebarRef.current) {
     sidebarRef.current.focus();
@@ -40,20 +52,28 @@ const Sidebar: FC<opner> = ({ setOpen, open }) => {
           </Link>
         </div>
         <div className={styles.listItem} onClick={() => setOpen(false)}>
-          <Link to="/create">
+          <Link to={aunthificated ? '/create' : '/login'}>
             {' '}
             <img src={CreateIcon} alt="" className={styles.listimg} /> Создать
           </Link>
         </div>
         <div className={styles.listItem} onClick={() => setOpen(false)}>
-          <Link to={`/records/${auth.currentUser?.uid}`}>
+          <Link to={aunthificated ? `/records/${auth.currentUser?.uid}` : '/login'}>
             <img src={FolderIcon} alt="" className={styles.listimg} /> Мои объявления
           </Link>
         </div>
-        {auth.currentUser && (
-          <div className={styles.listItem} onClick={() => setOpen(false)}>
-            <img src={LogoutIcon} alt="" className={styles.listimg} /> Выйти
+        {aunthificated ? (
+          <div onClick={() => Logout(setAunthificated)}>
+            <div className={styles.listItem} onClick={() => setOpen(false)}>
+              <img src={LogoutIcon} alt="" className={styles.listimg} /> Выйти
+            </div>
           </div>
+        ) : (
+          <Link to="/login">
+            <div className={styles.listItem} onClick={() => setOpen(false)}>
+              <img src={LogoutIcon} alt="" className={styles.listimg} /> Войти
+            </div>
+          </Link>
         )}
       </div>
     </div>
